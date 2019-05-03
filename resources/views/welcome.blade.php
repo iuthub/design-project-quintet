@@ -12,10 +12,16 @@
             <div class="product-grid3">
                 <div class="product-image3">
                     <a href="#">
-                       
-                        <img class="pic-1" src="{{URL::asset('/image/p (1).jpg')}}">
-                        <img class="pic-2" src="{{URL::asset('/image/p (2).jpg')}}">
-                       
+                        @if($product->in_category=='Socks'||$product->in_category=='Scarfs'||$product->in_category=='Hats'||$product->in_category=='Balls'||$product->in_category=='Braclets')
+                        <img class="pic-1" src="{{URL::asset('image/products/Others/'.$product->slug.'/1.jpg')}}">
+                        <img class="pic-2" src="{{URL::asset('image/products/Others/'.$product->slug.'/2.jpg')}}">
+                        @elseif($product->in_category=='Polo')
+                        <img class="pic-1" src="{{URL::asset('image/products/T-Shirts&Tops/'.$product->slug.'/1.jpg')}}">
+                        <img class="pic-2" src="{{URL::asset('image/products/T-Shirts&Tops/'.$product->slug.'/2.jpg')}}">
+                        @else
+                        <img class="pic-1" src="{{URL::asset('image/products/'.$product->in_category.'/'.$product->slug.'/1.jpg')}}">
+                        <img class="pic-2" src="{{URL::asset('image/products/'.$product->in_category.'/'.$product->slug.'/2.jpg')}}">
+                        @endif
                     </a>
                     <ul class="social">
                         <li><div class="btn-group btn-group">
