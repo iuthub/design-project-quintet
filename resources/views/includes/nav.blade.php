@@ -28,7 +28,10 @@
 
           
           </ul>
-            <a class="nav-link ml-auto" href="#"><i class="fa fa-shopping-cart navb"></i></a>
+            <a class="nav-link ml-auto" href="{{url('cart')}}"><i class="fa fa-shopping-cart navb"></i></a>
+            @if (Cart::instance('default')->count() > 0)
+                            <span class="item-counter pl-1">{{ Cart::instance('default')->count() }}</span></span>
+              @endif
         </div>
       </div>
     </nav>

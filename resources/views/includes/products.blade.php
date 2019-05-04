@@ -22,7 +22,7 @@
                     <ul class="social">
                     	<li><div class="btn-group btn-group">
 						  <button type="button" class="btn btn-link"><a href="#"><i class="fa fa-shopping-bag"></i></a></button>
-						  <form class="form-inline" action="#" method="POST">
+						  <form class="form-inline" action="{{ route('cart.store') }}" method="POST">
 				                {{ csrf_field() }}
 				                  <input type="hidden" name="id" value="{{ $product->id}}">
 				                <input type="hidden" name="name" value="{{ $product->name }}">
@@ -32,15 +32,6 @@
 						
 						</div>
 					</li>
-                        {{-- <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                        <li> 
-                        	 <form class="form-inline" action="#" method="POST">
-				                {{ csrf_field() }}
-				                <input type="hidden" name="id" value="{{ $product->id }}">
-				                <input type="hidden" name="name" value="{{ $product->name }}">
-				                <input type="hidden" name="price" value="{{ $product->price }}">
-				                <button type="submit" class="btn btn-link"><a href="#"><i class="fa fa-shopping-cart"></i></a></button>
-				            </form></li>--}}
                     </ul>
                     {{-- <span class="product-new-label">New</span> --}}
                 </div>

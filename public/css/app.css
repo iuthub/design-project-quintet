@@ -101,7 +101,16 @@ a.navbar-brand {
 margin-right: 100px
 }
 
-
+span.item-counter
+{
+		color:#f12e1c;
+	background-color:#000;
+	font-size:15px;
+	line-height:20px;
+	width:20px;
+	height:20px;
+	border-radius:5rem;
+}
 
 footer.navbar 
 {
