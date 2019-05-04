@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'WelcomePageController@index')->name('welcome.index'); 
+Route::get('/about', 'Controller@about'); 
 
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
