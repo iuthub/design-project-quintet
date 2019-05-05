@@ -1,7 +1,33 @@
 @extends('Layout.layout')
   @section('content')
-  <div class="container">
-                       @if (Cart::count() > 0)
+                  {{--     --}}
+            <div class="breadcrumbs">
+        <div class="container">
+            <a href="#">Home</a>
+            <i class="fa fa-chevron-right breadcrumb-separator"></i>
+            <span>Shopping Cart</span>
+        </div>
+    </div> <!-- end breadcrumbs -->
+
+    <div class="cart-section container">
+        <div>
+            @if (session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+             @if (Cart::count() > 0)
 
             <h2>{{ Cart::count() }} item(s) in Shopping Cart</h2>
 
@@ -9,9 +35,15 @@
                 @foreach (Cart::content() as $item)
                 <div class="cart-table-row">
                     <div class="cart-table-row-left">
-                        <a href="{{route('shop.show',$item->model->slug)}}"><img src="{{asset('image/products/'.$item->model->in_category.'/'.$item->model->slug.'/1.jpg')}}" alt="item" class="cart-table-img"></a>
+                        <a href="{{ route('shop.show', $item->model->slug) }}">
+                            @if($item->model->in_category=='Socks'||$item->model->in_category=='Scarfs'||$item->model->in_category=='Hats'||$item->model->in_category=='Balls'||$item->model->in_category=='Bracelets')
+                            <img src="{{asset('image/products/Others/'.$item->model->slug.'/1.jpg')}}" alt="item" class="cart-table-img">
+                            @else
+                            <img src="{{asset('image/products/'.$item->model->in_category.'/'.$item->model->slug.'/1.jpg')}}" alt="item" class="cart-table-img">
+                            @endif
+                        </a>
                         <div class="cart-item-details">
-                            <div class="cart-table-item"><a href="#">{{ $item->model->name }}</a></div>
+                            <div class="cart-table-item"><a href="{{ route('shop.show', $item->model->slug) }}">{{ $item->model->name }}</a></div>
                             <div class="cart-table-description">{{ $item->model->details }}</div>
                         </div>
                     </div>
@@ -31,24 +63,22 @@
                             </form>
                         </div>
                         <div>
-                            <select class="quantity">
-                                <option selected="">1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select class="quantity" data-id="{{ $item->rowId }}">
+                                @for ($i = 1; $i < 5 + 1 ; $i++)
+                                    <option {{ $item->qty == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                @endfor
                             </select>
                         </div>
-                        <div>{{ $item->model->presentPrice() }}</div>
+                        <div>{{ presentPrice($item->subtotal)  }}</div>
                     </div>
                 </div> <!-- end cart-table-row -->
                 @endforeach
 
             </div> <!-- end cart-table -->
-
-           
             <div class="cart-totals">
-          
+                <div class="cart-totals-left">
+                   
+                </div>
 
                 <div class="cart-totals-right">
                     <div>
@@ -65,7 +95,7 @@
             </div> <!-- end cart-totals -->
 
             <div class="cart-buttons">
-                <a href="{{ url()->previous() }}" class="button">Continue Shopping</a>
+                <a href="{{ url('shop')}} " class="button">Continue Shopping</a>
                 <a href="#" class="button-primary">Proceed to Checkout</a>
             </div>
 
@@ -73,7 +103,7 @@
 
                 <h3>No items in Cart!</h3>
                 <div class="spacer"></div>
-                <a href="{{ url()->previous() }}" class="button">Continue Shopping</a>
+                <a href="{{url('shop')}}" class="button">Continue Shopping</a>
                 <div class="spacer"></div>
 
             @endif
@@ -86,9 +116,9 @@
                 @foreach (Cart::instance('saveForLater')->content() as $item)
                 <div class="cart-table-row">
                     <div class="cart-table-row-left">
-                        <a href="{{route('shop.show',$item->model->slug)}}"><img src="{{asset('image/products/'.$item->model->in_category.'/'.$item->model->slug.'/1.jpg')}}" alt="item" class="cart-table-img"></a>
+                        <a href="{{ route('shop.show', $item->model->slug) }}"><img src="{{asset('image/products/'.$item->model->in_category.'/'.$item->model->slug.'/1.jpg')}}" alt="item" class="cart-table-img"></a>
                         <div class="cart-item-details">
-                            <div class="cart-table-item"><a href="#">{{ $item->model->name }}</a></div>
+                            <div class="cart-table-item"><a href="{{ route('shop.show', $item->model->slug) }}">{{ $item->model->name }}</a></div>
                             <div class="cart-table-description">{{ $item->model->details }}</div>
                         </div>
                     </div>
@@ -121,4 +151,32 @@
 
             @endif
         </div>
-            @endsection
+    </div>
+
+            @endsection 
+
+
+@section('extra-js')
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        (function(){
+            const classname = document.querySelectorAll('.quantity')
+            Array.from(classname).forEach(function(element) {
+                element.addEventListener('change', function() {
+                    const id = element.getAttribute('data-id')
+                    axios.patch(`/cart/${id}`, {
+                        quantity: this.value
+                    })
+                    .then(function (response) {
+                        // console.log(response);
+                        window.location.href = '{{ route('cart.index') }}'
+                    })
+                    .catch(function (error) {
+                        // console.log(error);
+                        window.location.href = '{{ route('cart.index') }}'
+                    });
+                })
+            })
+        })();
+    </script>
+@endsection
