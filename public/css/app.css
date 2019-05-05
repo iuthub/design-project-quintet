@@ -238,3 +238,155 @@ ul.social
 }
 @media only screen and (max-width:359px){.product-grid3 .rating{margin:0}
 }
+
+.product-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 120px;
+}
+
+.product-section-image {
+  border: 1px solid #979797;
+  padding: 30px;
+  text-align: center;
+}
+
+
+#row1 {
+        padding: 0px;
+    }
+
+    .mag {
+        width: 450px;
+        margin: 0 auto;
+        float: none;
+    }
+
+        .mag img {
+            max-width: 100%;
+        }
+
+    .mag1 {
+        width: 300px;
+        margin: 0 auto;
+        float: none;
+    }
+
+        .mag1 img {
+            max-width: 100%;
+        }
+
+    .mag2 {
+        width: 900px;
+        margin: 0 auto;
+        float: none;
+    }
+
+        .mag2 img {
+            max-width: 100%;
+        }
+
+    .magnify {
+        position: relative;
+        cursor: none;
+    }
+
+    .magnify-large {
+        position: absolute;
+        display: none;
+        width: 400px;
+        height: 400px;
+        -webkit-box-shadow: 0 0 0 7px rgba(204, 204, 204, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.55), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+    }
+
+ * {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
